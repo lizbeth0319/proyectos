@@ -30,7 +30,6 @@
     gap:50px;
     align-items:stretch;
     flex-direction: column;
-    align-self: wrap-reverse;
     align-content: space-around;
     padding: 50px;
     width: 100%;
@@ -250,14 +249,13 @@
     /*incio primera imagen y marco*/
     .divfondoi{
         display: flex;
-        gap: 50px;
+        gap: 10px;
         align-items:stretch;
         flex-direction: column;
-        align-self: wrap-reverse;
         align-content: space-around;
         padding: 50px;
-        width: 100%;
-        height: 60vh;
+        width: 60vh;
+        height: 100%;
         background-image:url(imagen/fondo.jpg) ;
         background-repeat: no-repeat;
         background-size: cover;
