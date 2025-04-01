@@ -165,6 +165,11 @@
     padding-right: 80px;
     padding-bottom: 80px;
 }
+.padre{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 .cuadros{
     margin: var(--color3);
     border: 1px solid rgb(250, 240, 240);

@@ -26,13 +26,12 @@ header{
     padding: 10px 0;
 }
 .container{
-    width: 70%;
-    
+    width: 90%;
+    height: 20%;
 }
 .navegacion{
     display: flex;
-    justify-content: space-around;
-    padding: 20px;
+    justify-content: space-between;
     
 }
 .navegacion h1{
