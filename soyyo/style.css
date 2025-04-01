@@ -1,0 +1,213 @@
+:root{
+    --color1:#3b3d35;
+    --color2:#ea6b52 ;
+    --color3:#724cbf ;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body{
+    background-color: white;
+    margin-top: 80px;
+}
+header{
+    position: fixed; /* Fija el header en la parte superior */
+    top: 0; /* Asegura que se mantenga arriba */
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    z-index: 1000; 
+    display: flex;
+    justify-content: center;
+    background-color: var(--color1);
+    padding: 10px 0;
+}
+.container{
+    width: 70%;
+    
+}
+.navegacion{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    
+}
+.navegacion h1{
+    color:white ;
+    font-size: 30px;
+}
+.navegacion .opsiones{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.navegacion .opsiones a {
+    color: #c0bfc2;
+    text-decoration: none;
+    transition: color 0.4s;
+}
+.navegacion .opsiones a:hover{
+    color:white;
+}
+@media screen  and (max-width: 768px) {
+    .container{
+        width: 90%;
+    }
+    .navegacion{
+        display: block;
+    }
+    .navegacion h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .navegacion .opsiones {
+        display: flex;
+        flex-direction: column;
+        gap: 20px ;
+    }
+}
+/*solo es el encabezado*/ 
+.containero{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(3, auto);
+
+}
+.contiene{
+    width: 80%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px;
+    padding-top: 50px;
+
+}
+.contiene .text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    padding: 10px;
+}
+.contiene .text .titulo {
+    padding: 30px 20px ;
+    color: var(--color2);
+    font-size: 60px;
+    font-weight:bold;
+    margin: 0;
+}
+.contiene .text .btn {
+    display: block;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    margin-top: 30px;
+    text-decoration: none;
+    padding: 10px 5px;
+  }
+  /*cuadro dos */
+.cuadro2{
+    background-color: var(--color2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center ;
+    color: white;
+    padding: 50px 20px;
+    gap: 0px;
+    padding-top: 0%;
+}
+
+.iman{
+    width: 1200px;
+    height: 300px;
+    margin: 10px;
+    border: 10px;
+}
+.iman img{
+    width: 300px;
+    height: 300px;
+
+
+}
+/*cuerpo 3*/
+.espacio3 {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.titulo-proyectos {
+    text-align: center;
+    font-size: 50px;
+    margin: 50px 0 20px;
+}
+
+.contenedor-espacio3 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 50px;
+}
+
+.proyectos {
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.proyectos img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.proyectos h3 {
+    margin: 15px 0;
+    font-size: 24px;
+    padding-bottom: 1px;
+}
+
+.proyectos p {
+    padding-bottom: 30px;
+    text-align: justify;
+    padding: 30px;
+}
+
+.proyectos button {
+    color: #fff;
+    width: 100px;
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    border: none;
+    text-decoration: none;
+    padding: 10px 5px;
+}
+.center{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    align-content: center;
+    height: 80px;
+}
+
+.proyectos button:hover {
+    background-color: var(--color2);
+    transform: scale(1.05);
+}
+
+.barra-inferior {
+    display: grid;
+    place-items: center;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+}

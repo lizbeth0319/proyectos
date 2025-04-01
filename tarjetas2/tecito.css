@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    background-image: url(https://i.pinimg.com/736x/0f/8f/8c/0f8f8cde987f9b446b21c3a043675a8d.jpg);
+}
+h2{
+    color: #5e0e85;
+}
+.card{
+    background-color: #e8c8ff ;
+    border: 1px solid purple !important;
+    width: 90%;
+    display: flex;
+    flex-direction: column; /* Coloca los elementos uno encima del otro */
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+    
+}
+.container{
+    /*border: 1px solid red;*/
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3,1fr) ;
+   gap: 20px;
+
+   
+}
+.icon{
+    
+    overflow: hidden;
+}
+
+img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    
+}
+
+.contenido{
+    display: flex;
+    flex-direction: column;
+    text-align: center;    /* Opcional: centra el texto dentro de su contenedor */
+    padding: 10px;         /* Espaciado interno opcional */
+    border: 1px ;
+  
+}
+.card:hover {
+    transform: scale(1.05); /* Aumenta el tamaño de la tarjeta un 5% */
+    box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25); /* Añade una sombra más grande */
+}
+/*prueba efectos*/
+
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+        width: 90%;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: repeat(1, 1fr);
+        width: 95%;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    h2 {
+        font-size:1.2rem;
+    }
+}
+
+  

@@ -1,0 +1,344 @@
+:root{
+    --color1:#559aba;
+    --color2:#4cb0b5 ;
+    --color3:#0076ad ;
+    --color4:#b3babd;
+    --color5:#e1e2e2;
+    --color6:#a0a0a0
+}
+*{
+    
+    /*margin: 10px;*/
+    box-sizing: border-box;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.contenerdor{
+    display: flex;
+    justify-content: center;
+    padding: 3%;
+    box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25); 
+}
+.centrar{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(3, auto);
+    
+}
+/*incio primera imagen y marco*/
+.divfondoi{
+    display: flex;
+    gap:50px;
+    align-items:stretch;
+    flex-direction: column;
+    align-self: wrap-reverse;
+    align-content: space-around;
+    padding: 50px;
+    width: 100%;
+    height: 60vh;
+    background-image:url(imagen/fondo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:center;
+}
+
+.divfondoi p {
+    color: white;
+}
+.divfondoi button{
+    color: white;
+    background-color: var(--color3);
+    border-radius: 20px;
+    border-color: var(--color3);
+    width: 150px;
+    height: 40px;
+}
+.descarga{
+    height: 10px;
+    width: 10px;
+}
+
+.print{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+
+}
+/* menu*/
+.menu{
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    grid-template-rows: repeat(1, 50px);
+    gap:20px ;
+}
+.menu-item{
+    margin-top: 0%;
+    margin-bottom: 0%;
+    margin-left: 25px;
+    margin-right:20px ;
+}
+.menu-imagen{
+    justify-content: center;
+    margin-left: 50px;
+}
+#perfil{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    padding: 5px;
+    border: 1px solid rgb(250, 240, 240);
+    background-color: white;
+    position: relative;
+    bottom: -20%;
+    top: -50%; 
+    height:auto; 
+    
+}
+.iconomini{
+    width: 20px;
+    height: 20px;
+}
+
+
+/* parte despues del menu*/
+.div2{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, auto);
+    margin: var(--color3);
+}
+.cuadro{
+    padding: 10%;
+    
+
+}
+#cuadro1{
+    background-color: var(--color5);
+}
+.botonb{
+    border-color: var(--color3);
+    background-color: white;
+    border-radius: 20px;
+    width: 200px;
+    height: 30px;
+    color: var(--color3);
+}
+#cuadro2{
+    background-color: var(--color4);
+}
+.iconos {
+    display: flex;
+    gap: 15px; 
+    padding-top: 50px;
+}
+
+.iconos i {
+    transition: transform 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.iconos i:hover {
+    transform: scale(1.3); 
+}
+
+#cuadro3{
+    background-color: var(--color5);
+}
+
+.icones{
+    width: 50px;
+    height: 50px;
+}
+/* medio*/
+
+/* parte 2*/
+.icone{
+    width:50px ;
+    height: 50px;
+}
+.queso{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 40px;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-bottom: 80px;
+}
+.cuadros{
+    margin: var(--color3);
+    border: 1px solid rgb(250, 240, 240);
+    padding: 10%;
+}
+.actualmente {
+    background-color: rgba(0, 140, 200, 0.9);
+    color: white; /* Azul para el texto */
+    padding: 2px 6px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+}
+.ubication-interests {
+    display: grid;
+    grid-template-columns: repeat(4, 70px); /* Cuatro columnas con un ancho de 70px cada una */
+    grid-template-rows: auto auto; /* Dos filas, una para los iconos y otra para el texto */
+    padding-top: 50px;
+    justify-items: center;
+    padding-left: 10px;
+    margin-left: -20px;
+}
+
+.ubication-interests i {
+    width: 60px;
+    height: 60px; /* Cambié la altura para que el círculo sea más simétrico */
+    border: 2px solid rgba(0, 140, 200, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    margin-bottom: 10px; /* Esto va a separar un poco los iconos de los textos */
+}
+
+.ubication-interests p {
+    padding-top: 10px;
+    margin: 0;
+}
+
+/*rayitasss*/ 
+.skill {
+    margin-bottom: 15px;
+}
+
+.skill-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    display: flex;
+    gap: 5px;
+}
+.segment {
+    width: 30px;
+    height: 5px;
+    background-color: lightgray;
+    border-radius: 3px;
+}
+
+.filled {
+    background-color: deepskyblue;
+} 
+/*inicio de resposabilidad */
+ 
+@media (max-width: 900px) {
+    .contenerdor{
+        display: flex;
+        justify-content: center;
+        padding: 3%;
+        box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25); 
+    }
+    .centrar{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(3, auto);
+        
+    }
+    /*incio primera imagen y marco*/
+    .divfondoi{
+        display: flex;
+        gap: 50px;
+        align-items:stretch;
+        flex-direction: column;
+        align-self: wrap-reverse;
+        align-content: space-around;
+        padding: 50px;
+        width: 100%;
+        height: 60vh;
+        background-image:url(imagen/fondo.jpg) ;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position:center;
+    }
+        
+        .print{
+            display: flex;
+            justify-content: space-around;
+            align-items: stretch;
+            flex-direction: column;
+        
+        }
+        /* menu*/
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+                
+
+        .menu-item {
+            background-color: #ffffff;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .menu-item:hover {
+            background-color: #2980b9;
+        }
+
+        .menu-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .menu-imagen{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        justify-items: center;
+        align-items:center ;
+        margin-left: 0%;
+        margin-bottom: 0;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        
+        }
+        #perfil{
+            position: static;
+        }
+        /* parte de abajo*/
+        .div2{
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(3, auto);
+            margin: var(--color3);
+        }
+
+    /* parte 2*/
+    .icone{
+        width:10% ;
+        height: 10%;
+    }
+    .queso{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        justify-content: stretch;
+        padding: 5%;
+        margin:var(--color4);
+    }
+    .circule{
+        width: 30px;
+        height: 30px;
+    }
+    .cuadros{
+        margin: var(--color3);
+        border: 1px solid rgb(250, 240, 240);
+        padding: 5%;
+    }
+        
+        
+}
+
+

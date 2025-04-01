@@ -1,0 +1,476 @@
+/*glosario de class o id
+.container =contenerdor de toda la pag solo centrado
+.contenerdo =contenedor de la pag
+.encabezado=encabezado (titulo y botones ,busqueda)
+.barra=busqueda
+.button .lupa=noton con el icono lupa
+.button .cart=boton carrito
+.negro div donde esta button .cart
+.cuerpo=despues del encabezado
+.menu =cuerpo del menu 
+.elements
+.product
+.tarjetasG 
+#tarjetagrande
+#tarjetapeq1
+#tarjetapeq2
+.card
+#card1
+#card2
+#card3
+#card4
+.part1
+.part2
+.part3
+.category-men
+.banner
+#banner1
+#banner2
+banner3
+*/
+:root{
+    --color1:#000000 ;
+    --color2:#ffffff ;
+}
+.container{
+    padding: 30px;
+    border: 2px solid var(--color1);
+    box-sizing: border-box;
+}
+
+.encabezado{
+    display: flex;
+    gap: 20px;
+    box-sizing: border-box;
+}
+.abajo{
+    margin:0%;
+    border: 0;
+    width:60%;
+}
+.encabezado #titule{
+    font-size: 40px;
+    margin: 0;
+}
+.barra{
+    margin:2px solid#dfdcdc ;
+}
+.negro button{
+    background-color:var(--color1);
+    color: var(--color2);
+    margin: 2px solid var(--color1);
+    overflow:hidden;
+}
+.negro button:hover{
+    -webkit-transform:scale(1.3);
+    transform:scale(1.3);
+}
+
+/*cuerpo despues del encabzado*/
+.cuerpo{
+    width: 100%;
+    border: 2px solid #e7e7e7;
+}
+.menu{
+    padding-left: 2%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    margin: 10px;
+    box-sizing: border-box;
+} 
+/*falta efecto del menu */
+.elements{
+    width: 150px;
+    height: 30px ;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:  5rem; ;
+}
+.menu .elemets:hover {
+    color: white;
+    background-color: #000000;
+    
+}
+
+/*inicio imagenes*/
+.product {
+    display: flex;
+    padding: 30px;
+    background-color: white;
+    box-sizing: border-box;
+    height: 70vh;
+    width: 90%;
+    gap: 10px;
+    padding-left: 6%;
+}
+.tarjetasG {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+}
+.tarjetasG h1{
+    font-size: 4rem; /* 20px */
+    padding: 0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.tarjetasG7{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Separa el título arriba y el texto abajo */
+        color: white;
+        text-align: left;
+        padding: 30px;
+        background-size: cover;
+        background-position: center;
+        height: 100%; 
+    
+}
+.cartitas {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+#tarjetagrande {
+    width: 70%;
+    background-image: url(imgenes_menu/1.jpg); /* Reemplaza con tu imagen */
+}
+#tarjetapeq1{
+    background-image: url(imgenes_menu/1.2.jpg);
+    background-size: cover; /* O 'contain' según tus necesidades */
+    background-position:20% top;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 50vh;
+    padding: 2%;
+    align-items: flex-start;
+}
+#tarjetapeq2{
+    background-image: url(imgenes_menu/2.jpg);
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+/*medis*/
+.products{
+    padding-left:5%;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+/*ropa*/
+.cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 20px;
+    width: 90%;
+    padding-left:4% ;
+}
+.cards img{
+    height: 30vh;
+    width: 20vh;
+}
+.card{
+    border: 2px solid#f0f0f0;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding: 2%;
+}
+.part1{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.part2{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+.part3{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.part3 button{
+    color: white;
+    background-color: #000000;
+    width: 150px;
+    height:30px ;
+}
+.part3 button:hover{
+    border-radius: 20px;
+    background-color: rgb(133, 104, 78);
+    color: #000000;
+}
+/*inicio tres cuadros */
+.category-men{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    padding: 3%;
+    
+}
+
+.banner{
+    
+        justify-content: space-between; /* Separa el título arriba y el texto abajo */
+        color: white;
+        text-align: left;
+        padding: 30px;
+        background-size: cover;
+        background-position: center;
+        height: 100%;  
+}
+
+#banner1{
+    border: 2px solid black;
+    background-image: url(imgenes_menu/12.jpg);
+    background-size: cover; /* O 'contain' según tus necesidades */
+    background-position:20% top;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 20vh;
+    padding: 2%;
+    font-size: 10px;
+    /* display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 20vh;
+        padding: 2%;
+        font-size: 10px;*/
+}
+#banner2{
+    border: 2px solid black;
+    background-image: url(imgenes_menu/13.jpg);
+    background-size: cover; /* O 'contain' según tus necesidades */
+    background-position:center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 20vh;
+    padding: 2%;
+    font-size: 10px;
+}
+
+#banner3{
+    border: 2px solid black;
+    background-image: url(imgenes_menu/14.jpg);
+    background-size: cover; /* O 'contain' según tus necesidades */
+    background-position:20% top;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 20vh;
+    padding: 2%;
+    font-size: 10px;
+}
+/*parte de abajo*/
+.pie-pagina{
+    background-color: #f1f1f1;
+    display: flex;
+    gap: 60px;
+    justify-content: space-between;
+}
+
+.base{
+    display: flex;
+    gap: 50px;
+    padding: 3%;
+}
+
+.base p:hover{
+    -webkit-transform:scale(1.3);
+    transform:scale(1.3);
+}
+.contact{
+    width: 40%;
+    padding-top: 3%;
+}
+
+/*
+.info
+.contact
+*/
+/*responsiva*/
+@media (max-width: 900px) {
+    .encabezado{
+        width: 100%;
+        gap: 20px;
+        display: grid;
+        grid-template-rows: 1fr;
+        justify-content: center;
+    }
+    .cuerpo{
+        display: flex;
+        flex-direction: row;
+        margin: 10px;
+        width: 100%;
+        border: 2px solid #e7e7e7;
+        gap: 2%;
+        flex-wrap: wrap;
+    }
+    .menu{
+        display: grid ;
+        grid-template-rows: 1fr;
+        justify-content: center;
+        padding-left: 2%;
+        gap: 10px;
+        width: 100%;
+        margin: 10px;
+        box-sizing: border-box;
+    } 
+    
+    .product{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap; 
+        align-items: center;
+        justify-content: space-between;
+        height: 20%;
+        padding: 2%;
+        width: 60vh;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    
+        /*#tarjetagrande,
+        .cartitas,
+        #tarjetapeq1,
+        #tarjetapeq2 {
+        
+        }*/
+        
+        .cartitas{
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        #tarjetagrande{
+            width: 100%;
+            background-position: right;
+            height: 60%;
+        }
+        .tarjetasG h1{
+            font-size: 2rem; /* 20px */
+            padding: 0;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+        #tarjetapeq1{
+            width: 100%;
+            height: 60%;
+        }
+        #tarjetapeq2{
+            width: 100%;
+            height: 60%;
+        }
+    .cards{
+        display: grid ;
+        grid-template-rows: 1fr;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        gap: 20px;
+        padding-left:4% ;
+    }
+    .card{
+        border: 2px solid#f0f0f0;
+        padding: 2%;
+    }
+
+    .category-men{
+        display: grid ;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        padding: 3%;
+        gap: 20px;
+        height: 70%;
+    }
+    .banner{
+        justify-content: space-between; /* Separa el título arriba y el texto abajo */
+        color: white;
+        text-align: left;
+        padding: 10px;
+        height: 100%;
+        box-sizing: border-box;
+            overflow: hidden;
+    }
+    #banner1{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 20vh;
+        padding: 2%;
+        font-size: 10px;
+    }
+    .banner h2{
+        display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+    }
+    #banner2{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 20vh;
+        padding: 2%;
+        font-size: 10px;
+    }
+    
+    #banner3{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 20vh;
+        padding: 2%;
+        font-size: 10px;
+    }
+    .pie-pagina{
+        display: grid ;
+        grid-template-rows: 1fr;
+        justify-content: center;
+        align-items: center;
+        gap: 60px;
+        width: 100%;
+        justify-content: space-between;
+        padding: 3%;
+    }
+    
+    .base{
+        display: grid ;
+        grid-template-rows: 1fr;
+        justify-content: center;
+        gap: 50px;
+        padding: 4%;
+    }
+    .base p:hover{
+        -webkit-transform:none;
+        transform:none;
+    }
+}

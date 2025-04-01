@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    
+}
+.card{
+    border: 1px solid purple !important;
+    display: flex;
+    flex-direction: column; /* Coloca los elementos uno encima del otro */
+    align-items: center;
+    flex-wrap: wrap;
+}
+.container{
+    border: 1px solid red;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) ;
+   
+}
+.container div{
+    border: 1px;
+    display: flex;
+    justify-content: center;
+}
+img{
+    width: 200px;
+     height: 200px;
+     object-fit: cover;
+}
+
+.contenido{
+    
+    display: flex;
+  flex-direction: column;
+    text-align: center;    /* Opcional: centra el texto dentro de su contenedor */
+  padding: 10px;         /* Espaciado interno opcional */
+ /*  background-color: #f0f0f0; Fondo opcional para visualización */
+  border: 1px ;
+}
