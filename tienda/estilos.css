@@ -32,14 +32,19 @@ banner3
     --color1:#000000 ;
     --color2:#ffffff ;
 }
+body{
+    border: 0;
+    background-color: #fffaf4 ;
+}
 .container{
     padding: 30px;
     /*border: 2px solid var(--color1);*/
     box-sizing: border-box;
-    background-color: #fffaf4 ;
+    
 }
 
 .encabezado{
+    width: 100%;
     display: flex;
     gap: 20px;
     box-sizing: border-box;
@@ -82,7 +87,7 @@ banner3
     margin: 10px;
     box-sizing: border-box;
 } 
-/*falta efecto del menu */
+/*efecto del menu */
 .elements{
     width: 150px;
     height: 30px ;
@@ -92,10 +97,8 @@ banner3
 .menu .elemets:hover {
     color: white;
     background-color: #000000;
-    
 }
-
-/*inicio imagenes*/
+/*inicio imagenes product*/
 .product {
     display: flex;
     padding: 30px;
@@ -120,6 +123,7 @@ banner3
 .tarjetasG h1{
     font-size: 4rem; /* 20px */
     padding: 0;
+    margin: 0;
     font-family:Arial, Helvetica, sans-serif;
 }
 .tarjetasG7{
@@ -229,6 +233,9 @@ banner3
     padding: 3%;
     
 }
+.arriba{
+    font-size: 1rem;
+}
 
 .banner{
     
@@ -239,8 +246,11 @@ banner3
         background-size: cover;
         background-position: center;
         height: 100%;  
+        transition: background-size 0.3s ease;
 }
-
+.banner :hover{ 
+    background-size: 110%;
+}
 #banner1{
     border: 2px solid black;
     background-image: url(imgenes_menu/12.jpg);
@@ -260,6 +270,7 @@ banner3
         padding: 2%;
         font-size: 10px;*/
 }
+
 #banner2{
     border: 2px solid black;
     background-image: url(imgenes_menu/13.jpg);
@@ -317,21 +328,29 @@ banner3
 /*responsiva*/
 @media (max-width: 900px) {
     .container{
-        padding: 30px;
+        padding: 20px;
         border: 2px solid var(--color1);
         box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
     }
     .encabezado{
-        width: 100%;
+        width: 90%;
         gap: 20px;
         display: grid;
         grid-template-rows: 1fr;
+        align-items: center;
         justify-content: center;
+        margin-bottom: 10px;
     }
+    
     .cuerpo{
         display: flex;
         flex-direction: row;
-        margin: 10px;
+        justify-content: center;
+        align-items: center;
         width: 100%;
         border: 2px solid #e7e7e7;
         gap: 2%;
@@ -429,7 +448,7 @@ banner3
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        height: 20vh;
+        height: 40vh;
         padding: 2%;
         font-size: 10px;
     }
@@ -445,7 +464,7 @@ banner3
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        height: 20vh;
+        height: 40vh;
         padding: 2%;
         font-size: 10px;
     }
@@ -454,7 +473,7 @@ banner3
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        height: 20vh;
+        height: 40vh;
         padding: 2%;
         font-size: 10px;
     }
