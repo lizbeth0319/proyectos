@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0b272a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .prueba {
+            background-color: #4e706b;
+            border-radius: 25px;
+        }
+
+        .container {
+            background: #4e706b;
+            padding: 20px;
+            border: 2px solid #244747;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10% rgba(253, 250, 250, 0.953);
+            width: 300px;
+        }
+
+        h3 {
+            color: aliceblue;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 2rem;
+        }
+
+
+        input,
+        select,
+        button {
+            width: 90%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #7b9c92;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .botonEliminar {
+            width: 10%;
+            
+        }
+
+        .gender-options {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .gender-options label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #000000;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #dad7c5;
+            color: #0b272a;
+        }
+
+        .final {
+            color: #dad7c5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>REGISTRARSE</h2>
+
+        <input id="Nom" type="text" placeholder="Nombres" required>
+
+        <input id="Ape" type="text" placeholder="Apellidos" required>
+
+        <input id=tele type="tel" placeholder="Número de teléfono" required>
+
+
+        <select id="docum">
+            <option value="">Seleccione un documento</option>
+            <option value="DNI">DNI</option>
+            <option value="Pasaporte">Pasaporte</option>
+            <option value="Licencia">Licencia</option>
+        </select>
+
+        <input id="numn" type="text" placeholder="Número de documento" required>
+        <input id="correo" type="email" placeholder="Correo electrónico" required>
+
+        <!--Radio Buttons -->
+        <div class="gender-options">
+            <label><input type="radio" name="genero" value="Masculino" required> Masculino</label>
+            <label><input type="radio" name="genero" value="Femenino" required> Femenino</label>
+            <label><input type="radio" name="genero" value="Otro" required> Otro</label>
+        </div>
+
+        <input type="date" id="fecha" required>
+
+        <button onclick="guardar()" type="submit">ENVIAR</button>
+    </div>
+    </br>
+    <div class="prueba" id="resultado"></div>
+
+
+
+    <script>
+        let guardo = [];
+        function guardar() {
+            let nombre = document.getElementById("Nom").value.trim();
+            let apellido = document.getElementById("Ape").value.trim();
+            let telefono = document.getElementById("tele").value.trim();
+            let tipoDocumento = document.getElementById("docum").value.trim();
+            let numeroDocumento = document.getElementById("numn").value.trim();
+            let correo = document.getElementById("correo").value.trim();
+            let generoSeleccionado = document.querySelector('input[name="genero"]:checked');
+            let fechaNacimiento = document.getElementById("fecha").value;
+
+
+
+            if (nombre === "") {
+                mostrarError();
+                return;
+            } else if (apellido == "") {
+                mostrarError();
+                return;
+            } else if (telefono === "") {
+                mostrarError();
+                return;
+            } else if (tipoDocumento === "") {
+                mostrarError();
+                return;
+            } else if (numeroDocumento === "") {
+                mostrarError();
+                return;
+            } else if (correo === "") {
+                mostrarError();
+                return;
+            } else if (!generoSeleccionado) {
+                mostrarError();
+                return;
+            } else if (fechaNacimiento === "") {
+                mostrarError();
+                return;
+            } else {
+                guardo.unshift({
+                    nombre: nombre,
+                    apellido: apellido,
+                    telefono: telefono,
+                    tipoDocumento: tipoDocumento,
+                    numeroDocumento: numeroDocumento,
+                    correo: correo,
+                    genero: generoSeleccionado.value,
+                    fechaNacimiento: fechaNacimiento
+                });
+                //alerta registrado
+                Swal.fire({
+                    title: "REGISTRADO!",
+                    icon: "success",
+                    draggable: true
+                });
+                console.log(guardo);
+
+                limpiar();
+                pintar();
+            }
+        }
+        function limpiar() {
+            document.getElementById("Nom").value = "";
+            document.getElementById("Ape").value = "";
+            document.getElementById("tele").value = "";
+            document.getElementById("docum").value = "";
+            document.getElementById("numn").value = "";
+            document.getElementById("correo").value = "";
+            document.querySelectorAll('input[name="genero"]').forEach(r => r.checked = false);
+            document.getElementById("fecha").value = "";
+        }
+
+        function mostrarError() {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Completa todos los campos!",
+                width: "50vh",
+                background: "#dad7c5",
+                backdrop: "",
+                timer: 6000,
+                timerProgressBar: true
+            });
+        }
+
+        function pintar() {
+            let contenedor = document.getElementById("resultado");
+            contenedor.innerHTML = ""; // Limpia antes de pintar de nuevo
+
+            guardo.forEach((item, index) => {
+                const ul = document.createElement("ul");
+                const li = document.createElement("li");
+                const boton = document.createElement("button");
+
+                boton.textContent = "❌";
+                boton.classList.add("botonEliminar");
+                boton.addEventListener("click", () => {
+                    guardo.splice(indice, 1);
+                    pintar()
+                });
+
+                li.textContent = `El nombre es: ${item.nombre}, el apellido es: ${item.apellido}, el teléfono es: ${item.telefono}, documento: ${item.tipoDocumento} ${item.numeroDocumento}, correo: ${item.correo}, género: ${item.genero}, fecha de nacimiento: ${item.fechaNacimiento}`;
+                li.appendChild(boton);
+                ul.appendChild(li);
+                contenedor.appendChild(ul);
+            });
+
+        }
+
+        // repinta la lista actualizada
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>
