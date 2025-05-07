@@ -1,0 +1,225 @@
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body{
+  background-image: url("https://i.pinimg.com/736x/39/2b/3a/392b3a521a11f3e6fcdaf9b2acae313b.jpg");
+  background-size: cover;
+  background-position: left;
+  border: 5% solid #214a5a;
+}
+@font-face {
+  font-family: 'Ketchum';
+  src: url('fonts/Ketchum.ttf.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.contenedor {
+  display: flex;
+  justify-content:center;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  gap: 20px;
+  min-height: 100%;
+}
+
+.cartas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  flex-wrap: wrap;
+  margin-left: 20%;
+  margin-right: 20%;
+  row-gap: 10%;
+  
+}
+
+/*cartas */
+
+.card {
+  position: relative;
+  width: 630px;
+  height: 800px;
+  margin: 20px;
+  
+}
+
+.card .face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: .5s;
+  border: 20px solid #ffe96c ;
+}
+
+.card .front {
+  transform: perspective(600px) rotateY(0deg);
+  box-shadow: 0 5px 10px #000;
+  
+}
+
+
+.card .back {
+  transform: perspective(600px) rotateY(180deg);
+  background-image: url("https://i.pinimg.com/736x/eb/d6/b4/ebd6b40346109b1ff8c4f56d4d01ebf7.jpg");
+  background-size: cover;
+  background-position:bottom 50px right 100px;
+  padding: 15px;
+  color: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  gap: 10%;
+  text-align: center;
+  box-shadow: 0 5px 10px #000;
+}  
+
+.card:hover .front {
+  transform: perspective(600px) rotateY(180deg);
+}
+
+.card:hover .back {
+  transform: perspective(600px) rotateY(360deg);
+}
+/*
+*-------------------------------------------
+*/
+.card .front{
+  display: flex;
+  
+  align-content: center;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#frente{
+  background-color: #214a5a;
+}
+#title{
+  position: relative;
+  top: 0px;
+
+  width: 300px;
+}
+.cuadro{
+  border: 10px solid #ffe96c;
+  width: 90%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://i.pinimg.com/736x/c3/38/7f/c3387f31601b9a2f95b61bf63496f8ab.jpg");
+  background-size: cover;
+  background-position: bottom;
+}
+.cuadro img{
+  width: 100%;
+  height:100%;
+}
+#marco{
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  top: 5px;
+  right: 10px; ;
+  border: 6px solid #ffe96c;
+  border-radius: 60px;
+}
+#marco img{
+  width: 100%;
+  height: 100%;
+}
+.nombre{
+    color: #000000;
+    font-family: 'Ketchum', sans-serif;
+    font-size: 4rem;
+}
+p{
+  font-size: 2rem;
+  font-weight:bolder;
+}
+.datobase{
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+}
+.num{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 0px;
+}
+.sobre{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.sobre h2{
+  margin-bottom: 15px;
+}
+#tipos button{
+  gap: 5px;
+  border:2px solid #C0C0C0;
+  width: auto;
+  font-size: 1rem;
+  font-weight: bold;
+}
+/* estadisiticas*/
+.stat {
+  margin-bottom: 15px;
+}
+
+.label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.bar-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 20px;
+}
+
+.bar {
+  height: 100%;
+  background-color: #75a339;
+  width: 0%;
+  transition: width 0.5s ease-in-out;
+}
+/* imagenes pokemon decoraion*/
+.left{
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  justify-content: left;
+  position: absolute;
+  left: 20px;
+}
+.left img{
+  width: 100px;
+  height: 100px;
+}
+.right{
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  justify-content: right;
+  position: absolute;
+  right: 20px;
+
+}
+.right img{
+  width: 100px;
+  height: 100px;
+}

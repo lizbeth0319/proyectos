@@ -163,6 +163,7 @@
                 return;
             } else {
                 guardo.unshift({
+                    item:Date.now()+Math.random()*1000,
                     nombre: nombre,
                     apellido: apellido,
                     telefono: telefono,
@@ -217,14 +218,17 @@
                 const li = document.createElement("li");
                 const boton = document.createElement("button");
 
-                boton.textContent = "❌";
+                boton.textContent = "🎈";
                 boton.classList.add("botonEliminar");
                 boton.addEventListener("click", () => {
-                    guardo.splice(indice, 1);
-                    pintar()
+                    /* guardo.splice(indice, 1); */
+                    console.log(item);
+                    document.getElementById("Nom").value=item.nombre
+                    document.getElementById("Ape").value=item.apellido
+                    //pintar()
                 });
 
-                li.textContent = `El nombre es: ${item.nombre}, el apellido es: ${item.apellido}, el teléfono es: ${item.telefono}, documento: ${item.tipoDocumento} ${item.numeroDocumento}, correo: ${item.correo}, género: ${item.genero}, fecha de nacimiento: ${item.fechaNacimiento}`;
+                li.textContent = `Item numero: ${item.item}El nombre es: ${item.nombre}, el apellido es: ${item.apellido}, el teléfono es: ${item.telefono}, documento: ${item.tipoDocumento} ${item.numeroDocumento}, correo: ${item.correo}, género: ${item.genero}, fecha de nacimiento: ${item.fechaNacimiento}`;
                 li.appendChild(boton);
                 ul.appendChild(li);
                 contenedor.appendChild(ul);

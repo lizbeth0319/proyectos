@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pokemon</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="contenedor">  <!--contenedor grande*/-->
+        <div>
+            <img id="title" src="tipo/title.jpg" alt="">
+        </div>
+
+        <div class="left">
+            <img src="tipo/charmandel.jpg" alt="">
+            <img src="tipo/cubone.jpg" alt="">
+            <img src="tipo/dragonite.jpg" alt="">
+            <img src="tipo/lvysaur.jpg" alt="">
+            <img src="tipo/squirtle.jpg" alt="">
+        </div>
+
+        <div class="right">
+            <img src="tipo/pikachy.jpg" alt="">
+            <img src="tipo/scorbunny.jpg" alt="">
+            <img src="tipo/flareon.jpg" alt="">
+            <img src="tipo/morado.jpg" alt="">
+            <img src="tipo/gordito_sentado.jpg" alt="">
+        </div>
+
+
+        <div class="cartas">
+            <div class="card">
+
+                <div class="face front" id="frente">
+                    <div>
+                        <h2 class="nombre" id="titulo ">Nombre pokemon</h2>
+                    </div>
+                    <div id="marco">
+                        
+                    </div>
+                    <div class="cuadro">
+                        <img id="imagen" src="" alt="">
+                    </div>
+                    <div class="datobase">
+                        <h3>Altura</h3> <p id="alto">.</p>
+                        <h3>peso</h3> <p id="peso">.</p>
+                        
+                    </div>
+                    <div class="num">
+                        <h2 >#</h2> <p id="ids">.</p>
+                    </div>
+                    <div class="sobre">
+                        
+                        <h2>Tipo</h2> 
+                        <div id="tipos"></div>
+                        
+                    </div>
+                </div>
+
+                <div class="face back">
+                    <h2 class="nombre">Nombre pokemon</h2>
+                    <div>
+                        <h1>Debilidades</h1>
+                        <div id="pokemon-weaknesses"></div>
+                    </div>
+                    
+                    <div>
+                        <h2>Estadísticas</h2>
+                        <div id="stats"></div>
+                        
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>   
+    </div><!--contenedor grande*/-->
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async() => {
+            function pokemonaleatorio(){
+                pokemon= parseInt(Math.random() * (400 - 1) + 1);
+                return pokemon;
+            }
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonaleatorio()}`)
+            console.log(res);
+            //colores
+            const colores = {
+                fire: '#ff4422',
+                water: '#3399ff',
+                grass: '#77cc55',
+                ground: '#E6C152FF',
+                electric: '#FDF17FFF',
+                normal: '#aaaa99',
+                fighting: '#bb5544',//
+                poison: '#aa5599',
+                flying: '#8899ff',
+                psychic: '#ff5599',
+                bug: '#aabb22',
+                rock: '#bbaa66',
+                ghost: '#6666bb',
+                ice: '#66ccff',
+                dragon: '#7766ee',
+                dark: '#775544',
+                steel: '#aaaabb',
+                fairy: '#ee99ee'
+                };
+            //nombre
+            document.querySelectorAll('.nombre').forEach(el => {
+                el.textContent = res.data.name.toUpperCase();
+            });
+
+            //document.querySelector(".nombre1").textContent = res.data.name;
+            //imagen 
+            document.getElementById("imagen").src = res.data.sprites.other["official-artwork"].front_default;
+            //id
+            document.getElementById("ids").textContent =res.data.id;
+            //altura
+            document.getElementById("alto").textContent =res.data.height / 10 +'m';
+            //peso
+            document.getElementById("peso").textContent =res.data.weight /10 +'kg';
+            //tipos botones
+            function cambiarimag(tipos) {
+                const imagen = document.createElement("img");
+                imagen.src = `tipo/${tipos}.jpg`;
+                imagen.alt = tipos;
+
+                const marco = document.getElementById("marco");
+                marco.innerHTML = ''; // limpia antes de añadir otra imagen
+                marco.appendChild(imagen);
+            }
+
+
+            function cambiarFondo(tipos) {
+                const color1 = colores[tipos[0]] || '#f5f5f5';
+                const color2 = tipos[1] ? (colores[tipos[1]] || '#f5f5f5') : color1;
+                
+
+                const frente = document.getElementById("frente");
+                const barra = document.getElementById("bar");
+
+                
+                if (tipos.length === 1) {
+                    frente.style.backgroundColor = color1;
+                    
+                } else {
+                    frente.style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+                }
+                
+            }
+
+            const guardodiv = document.getElementById("tipos");
+
+            const tipos = res.data.types.map(t => t.type.name);
+                if (tipos[0]) {
+                let tipe1 = document.createElement("button");
+                tipe1.textContent = tipos[0];
+                tipe1.style.backgroundColor = colores[tipos[0]] || '#f5f5f5';
+                tipe1.style.color = 'white';
+                tipe1.style.marginRight = '10px';
+                tipe1.style.padding = '5px 10px';
+                tipe1.style.borderRadius = '5px';
+                guardodiv.appendChild(tipe1);
+                }
+                if (tipos[1]) {
+                let tipe2 = document.createElement("button");
+                tipe2.textContent = tipos[1];
+                tipe2.style.backgroundColor = colores[tipos[1]] || '#f5f5f5';
+                tipe2.style.color = 'white';
+                tipe2.style.marginRight = '10px';
+                tipe2.style.padding = '5px 10px';
+                tipe2.style.borderRadius = '5px';
+                guardodiv.appendChild(tipe2);
+                }
+            cambiarFondo(tipos);
+            cambiarimag(tipos[0]);
+            console.log(tipos[0])
+
+            //debiloidades
+            const tiposData = res.data.types;  // Para obtener URLs
+            const weaknessesDiv = document.getElementById('pokemon-weaknesses');
+            weaknessesDiv.innerHTML = '';
+
+            try {
+                const debilidades = new Set();
+
+                for (const typeInfo of tiposData) {
+                    const typeResponse = await axios.get(typeInfo.type.url);
+                    const damageRelations = typeResponse.data.damage_relations;
+
+                    damageRelations.double_damage_from.forEach(type => {
+                        debilidades.add(type.name);
+                    });
+                }
+
+                if (debilidades.size === 0) {
+                    weaknessesDiv.textContent = "No tiene debilidades";
+                } else {
+                    debilidades.forEach(debilidad => {
+                        const debBadge = document.createElement('span');
+                        debBadge.className = 'type-badge';
+                        debBadge.textContent = debilidad;
+                        debBadge.style.backgroundColor = colores[debilidad] || '#999999';
+                        debBadge.style.color = 'white';
+                        debBadge.style.padding = '4px 8px';
+                        debBadge.style.margin = '2px';
+                        debBadge.style.borderRadius = '6px';
+                        weaknessesDiv.appendChild(debBadge);
+                    });
+                }
+            } catch (error) {
+                console.error("Error al cargar debilidades:", error);
+                weaknessesDiv.textContent = "Error al cargar debilidades";
+            }
+                        
+            // estadisticas 
+            const statsContainer = document.getElementById("stats");
+            const statsDelPokemon = res.data.stats;
+                const hp= res.data.stats["0"].base_stat;
+                const attack= res.data.stats["1"].base_stat;
+                const defense=res.data.stats["2"].base_stat;
+                const specialattack =res.data.stats["3"].base_stat;
+                const specialdefense=res.data.stats["4"].base_stat;
+                const speed=res.data.stats["5"].base_stat;
+            const stats = {
+                    "Hp": hp,
+                    "Attack": attack,
+                    "Defense": defense,
+                    "Special-attack": specialattack ,
+                    "Special-defense": specialdefense,
+                    "Speed": speed,
+                    };
+
+        const maxStat = 255;
+        const color1 = colores[tipos[0]] || '#f5f5f5';
+        const color2 = tipos[1] ? (colores[tipos[1]] || '#f5f5f5') : color1;
+
+        for (const [name, value] of Object.entries(stats)) {
+            const percentage = (value / maxStat) * 100;
+
+            const statElement = document.createElement("div");
+            statElement.className = "stat";
+
+            const label = document.createElement("div");
+            label.className = "label";
+            label.textContent = `${name} : ${value}/${maxStat}`;
+
+            const barContainer = document.createElement("div");
+            barContainer.className = "bar-container";
+
+            const bar = document.createElement("div");
+            bar.className = "bar";
+            bar.style.width = `${percentage}%`;
+
+            // Aplica el color igual que el fondo
+            bar.style.background = (color1 === color2)
+                ? color1
+                : `linear-gradient(to right, ${color1}, ${color2})`;
+
+            barContainer.appendChild(bar);
+            statElement.appendChild(label);
+            statElement.appendChild(barContainer);
+            statsContainer.appendChild(statElement);
+        }
+
+        
+        })
+    
+            
+
+    </script>
+</body>
+
+</html>
