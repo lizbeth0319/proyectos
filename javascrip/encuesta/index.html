@@ -1,130 +1,250 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Registro</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0b272a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-
-        .prueba {
-            background-color: #4e706b;
-            border-radius: 25px;
-        }
-
-        .container {
-            background: #4e706b;
-            padding: 20px;
-            border: 2px solid #244747;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 0 10% rgba(253, 250, 250, 0.953);
-            width: 300px;
-        }
-
-        h3 {
-            color: aliceblue;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 2rem;
-        }
-
-
-        input,
-        select,
-        button {
-            width: 90%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #7b9c92;
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .botonEliminar {
-            width: 10%;
-            
-        }
-
-        .gender-options {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 0;
-        }
-
-        .gender-options label {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #000000;
-        }
-
-        button {
-            background-color: black;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #dad7c5;
-            color: #0b272a;
-        }
-
-        .final {
-            color: #dad7c5;
-        }
-    </style>
+    <title>Encuesta</title>
 </head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGs5cGNscjM1YTd5dzJ4ZHI5bDg2eHM3azRidXNhNnE3c2RnejYzcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3TZgJXiwbdbLG/giphy.gif') no-repeat center center fixed;
+        background-size: cover;
+        color: #203d27;
+        overflow-x: hidden;
+    }
+
+    #alert-dialog {
+        width: 30%;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .container {
+        color: white;
+        background-color: rgba(167, 212, 162, 0.85);
+        padding: 15px 50px;
+        border-radius: 25px;
+        width: 75%;
+        height: 100%;
+        margin: 40px auto;
+        box-shadow: 0 0 25px rgba(227, 255, 222, 0.973);
+        position: relative;
+        border: 1px solid transparent;
+    }
+
+    #salir {
+        position: absolute;
+        top: 40px;
+        right: 20px;
+        background: #c0d94f;
+        color: white;
+        font-weight: bold;
+        padding: 12px 15px;
+        border-radius: 50%;
+    }
+
+    .item {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .item h5 {
+        margin: 5px 0;
+        color: #3b683d;
+    }
+
+    .item input,
+    .item select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #a4d4ae;
+        border-radius: 10px;
+        box-shadow: inset 0 0 5px #c2e9c7;
+        outline: none;
+        background-color: #ecf9ed;
+        color: #2c4f2e;
+    }
+
+    .gender-options {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .gender-options label {
+        font-size: 0.9em;
+        color: #285c30;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #5cbf71;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        box-shadow: 0 4px 8px rgba(44, 100, 52, 0.3);
+    }
+
+    button:hover {
+        background-color: #3b8d4a;
+    }
+
+    #show-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #73b36b;
+        font-size: 1rem;
+    }
+
+    #show-button:hover{
+        background-color: #2d5837;
+    }
+
+    dialog {
+        border: none;
+        border-radius: 20px;
+        padding: 0;
+        backdrop-filter: blur(6px);
+    }
+
+    table {
+        width: 90%;
+        margin: 40px auto;
+        border-collapse: collapse;
+        background-color: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 0 20px rgba(46, 125, 50, 0.6);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #cce7ce;
+    }
+
+    th {
+        background-color: #a1d5a4;
+        color: #2f5935;
+    }
+
+    tr:hover {
+        background-color: #e3f7e6;
+    }
+
+    .botonEliminar {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    .botonEliminar:hover {
+        background-color: #c0392b;
+    }
+
+</style>
+
 
 <body>
+    <div class="contador">
 
-    <div class="container">
-        <h2>REGISTRARSE</h2>
+        <dialog id="alert-dialog"><!---->
+            <div class="container">
+                <h2>REGISTRARSE</h2>
+                <div class="item">
+                    <h5>Nombres</h5>
+                    <input id="Nom" type="text" placeholder="Nombres" required>
+                </div>
 
-        <input id="Nom" type="text" placeholder="Nombres" required>
+                <div class="item">
+                    <h5>Apellidos</h5>
+                    <input id="Ape" type="text" placeholder="Apellidos" required>
+                </div>
 
-        <input id="Ape" type="text" placeholder="Apellidos" required>
+                <div class="item">
+                    <h5>Telefono</h5>
+                    <input id="tele" type="tel" placeholder="Número de teléfono" required>
+                </div>
 
-        <input id=tele type="tel" placeholder="Número de teléfono" required>
+                <div class="item">
+                    <h5>Selecciona tipo de documento</h5>
+                    <select id="docum">
+                        <option value="">Seleccione un documento</option>
+                        <option value="DNI">TID</option>
+                        <option value="Pasaporte">Extranjera</option>
+                        <option value="Licencia">Cedula</option>
+                    </select>
+                </div>
+
+                <div class="item">
+                    <h5>N° de Documento</h5>
+                    <input id="numn" type="text" placeholder="Número de documento" required>
+                </div>
+
+                <div class="item">
+                    <h5>Correo</h5>
+                    <input id="correo" type="email" placeholder="Correo electrónico" required>
+                </div>
+
+                <div class="item">
+                    <h5>Genero</h5>
+                    <div class="gender-options">
+                        <label><input type="radio" name="genero" value="Masculino"> Masculino</label>
+                        <label><input type="radio" name="genero" value="Femenino"> Femenino</label>
+                        <label><input type="radio" name="genero" value="Otro"> Otro</label>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <h5>fecha de Nacimiento</h5>
+                    <input type="date" id="fecha" required>
+                </div>
+
+                <button onclick="guardar()" type="submit" id="ENVIAR">ENVIAR</button>
+            </div>
+            <button id="salir" onClick="this.parentElement.close()">X</button>
+        </dialog>
+
+        <!---->
+        <button id="show-button">Mostrar diálogo</button>
 
 
-        <select id="docum">
-            <option value="">Seleccione un documento</option>
-            <option value="DNI">DNI</option>
-            <option value="Pasaporte">Pasaporte</option>
-            <option value="Licencia">Licencia</option>
-        </select>
-
-        <input id="numn" type="text" placeholder="Número de documento" required>
-        <input id="correo" type="email" placeholder="Correo electrónico" required>
-
-        <!--Radio Buttons -->
-        <div class="gender-options">
-            <label><input type="radio" name="genero" value="Masculino" required> Masculino</label>
-            <label><input type="radio" name="genero" value="Femenino" required> Femenino</label>
-            <label><input type="radio" name="genero" value="Otro" required> Otro</label>
+        <div>
+            <!-- Tabla donde se mostrarán los datos -->
+            <table border="1" id="tablaDatos">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Tipo documento</th>
+                    <th>Número documento</th>
+                    <th>Correo</th>
+                    <th>Género</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Eliminar</th>
+                </tr>
+            </table>
         </div>
 
-        <input type="date" id="fecha" required>
-
-        <button onclick="guardar()" type="submit">ENVIAR</button>
     </div>
-    </br>
-    <div class="prueba" id="resultado"></div>
-
-
-
     <script>
+        const showButton = document.querySelector("#show-button");
+        showButton.addEventListener("click", function () {
+            const alertDialog = document.querySelector("#alert-dialog");
+            alertDialog.show();
+        });
+    </script>
+    <script>
+        let idEditando = null;
         let guardo = [];
+        let contadorID = 1
         function guardar() {
             let nombre = document.getElementById("Nom").value.trim();
             let apellido = document.getElementById("Ape").value.trim();
@@ -136,56 +256,59 @@
             let fechaNacimiento = document.getElementById("fecha").value;
 
 
-
             if (nombre === "") {
-                mostrarError();
+                mostrarError(" Nombre");
                 return;
-            } else if (apellido == "") {
-                mostrarError();
+            } else if (apellido === "") {
+                mostrarError(" Apellido");
                 return;
             } else if (telefono === "") {
-                mostrarError();
+                mostrarError(" Telefono");
                 return;
             } else if (tipoDocumento === "") {
-                mostrarError();
+                mostrarError(" Tipo de Documento");
                 return;
             } else if (numeroDocumento === "") {
-                mostrarError();
+                mostrarError(" Numero de Documento");
                 return;
             } else if (correo === "") {
-                mostrarError();
+                mostrarError(" correo");
                 return;
             } else if (!generoSeleccionado) {
-                mostrarError();
+                mostrarError(" Selecciona genero");
                 return;
             } else if (fechaNacimiento === "") {
-                mostrarError();
+                mostrarError(" Fecha Nacimiento");
                 return;
-            } else {
-                guardo.unshift({
-                    item:Date.now()+Math.random()*1000,
-                    nombre: nombre,
-                    apellido: apellido,
-                    telefono: telefono,
-                    tipoDocumento: tipoDocumento,
-                    numeroDocumento: numeroDocumento,
-                    correo: correo,
-                    genero: generoSeleccionado.value,
-                    fechaNacimiento: fechaNacimiento
-                });
-                //alerta registrado
-                Swal.fire({
-                    title: "REGISTRADO!",
-                    icon: "success",
-                    draggable: true
-                });
-                console.log(guardo);
-
-                limpiar();
-                pintar();
             }
+            let persona = {
+                id: contadorID++,
+                nombre,
+                apellido,
+                telefono,
+                tipoDocumento,
+                numeroDocumento,
+                correo,
+                genero: generoSeleccionado.value,
+                fechaNacimiento
+            };
+
+            guardo.push(persona);
+            //guardo.unshift(persona);
+            limpiarFormulario();
+            pintarTabla();
+            console.log(guardo)
+            //alerta registrado
+            Swal.fire({
+                title: "REGISTRADO!",
+                icon: "success",
+                //background: url("marco-verde.jpeg.jpg") `center/cover no-repeat`,
+                draggable: true
+            });
+
         }
-        function limpiar() {
+
+        function limpiarFormulario() {
             document.getElementById("Nom").value = "";
             document.getElementById("Ape").value = "";
             document.getElementById("tele").value = "";
@@ -196,47 +319,118 @@
             document.getElementById("fecha").value = "";
         }
 
-        function mostrarError() {
+        function mostrarError(dato) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "¡Completa todos los campos!",
+                text: `completa el campo ${dato}`,
+                //background: url("/marco-verde.jpeg") `center/cover no-repeat`,
                 width: "50vh",
-                background: "#dad7c5",
-                backdrop: "",
                 timer: 6000,
                 timerProgressBar: true
             });
         }
 
-        function pintar() {
-            let contenedor = document.getElementById("resultado");
-            contenedor.innerHTML = ""; // Limpia antes de pintar de nuevo
 
-            guardo.forEach((item, index) => {
-                const ul = document.createElement("ul");
-                const li = document.createElement("li");
-                const boton = document.createElement("button");
+        function pintarTabla() {
+            const tabla = document.getElementById("tablaDatos");
+            //limpiar
+            //tablas.textcontent=''      
+            while (tabla.rows.length > 1) {
+                tabla.deleteRow(1);
+            }
 
-                boton.textContent = "🎈";
-                boton.classList.add("botonEliminar");
-                boton.addEventListener("click", () => {
-                    /* guardo.splice(indice, 1); */
-                    console.log(item);
-                    document.getElementById("Nom").value=item.nombre
-                    document.getElementById("Ape").value=item.apellido
-                    //pintar()
+            guardo.forEach((item) => {
+                let fila = document.createElement("tr");
+
+                let celdas = [
+                    item.id, item.nombre, item.apellido, item.telefono, item.tipoDocumento,
+                    item.numeroDocumento, item.correo, item.genero, item.fechaNacimiento
+                ];
+
+                celdas.forEach(valor => {
+                    let td = document.createElement("td");
+                    td.textContent = valor;
+                    fila.appendChild(td);
                 });
 
-                li.textContent = `Item numero: ${item.item}El nombre es: ${item.nombre}, el apellido es: ${item.apellido}, el teléfono es: ${item.telefono}, documento: ${item.tipoDocumento} ${item.numeroDocumento}, correo: ${item.correo}, género: ${item.genero}, fecha de nacimiento: ${item.fechaNacimiento}`;
-                li.appendChild(boton);
-                ul.appendChild(li);
-                contenedor.appendChild(ul);
+                let celdaAccion = document.createElement("td");
+                let guardodiv = document.createElement("div");
+
+                // Crear botón eliminar
+                let boton = document.createElement("button");
+                boton.textContent = "❌";
+                boton.style.padding = "5px 10px";
+                boton.style.border = "none";
+                boton.style.borderRadius = "5px";
+                boton.style.cursor = "pointer";
+
+                // Crear botón editar
+                let boton2 = document.createElement("button");
+                boton2.textContent = "🎈";
+                boton2.style.padding = "5px 10px";
+                boton2.style.border = "none";
+                boton2.style.borderRadius = "5px";
+                boton2.style.cursor = "pointer";
+                boton.classList.add("botonEliminar");
+
+                boton2.addEventListener("click", () => {
+                    idEditando = item.id; // Guardar el ID actual
+                    editar(item);
+                });
+
+                boton.addEventListener("click", () => {
+                    Swal.fire({
+                        title: "Estas seguro?",
+                        text: "Deseas eliminar los datos de la tabla ",
+                        icon: "warning",
+                        background: url("/marco-verde.jpeg")` center/cover no-repeat`,
+                        showCancelButton: true,
+                        confirmButtonColor: "#C8ECC1FF",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Eliminar!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "Eliminado!",
+                                text: "Los datos se han eliminado ",
+                                background: url("/marco-verde.jpeg")` center/cover no-repeat`,
+                                icon: "success"
+                            });
+                            guardo = guardo.filter(persona => persona.id !== item.id);
+                            pintarTabla();
+                        }
+                    });
+                    // guardo = guardo.filter(persona => persona.id !== item.id);
+                    pintarTabla(); // nombre correcto
+                });
+
+                guardodiv.appendChild(boton);
+                guardodiv.appendChild(boton2);
+                celdaAccion.appendChild(guardodiv);
+                fila.appendChild(celdaAccion);
+
+                tabla.appendChild(fila);
             });
+        }
+        // poder volver a ver los datos en las casillas corespondientes y editar los datos del formulario 
+        function editar(item) {
+            // const registros=JSON.parse(localStorage.getItem("tablaDatos"))||[];
+            // const registro=registros[guardo];
+            document.getElementById("Nom").value = item.nombre;
+            document.getElementById("Ape").value = item.apellido;
+            document.getElementById("tele").value = item.telefono;
+            document.getElementById("docum").value = item.tipoDocumento;
+            document.getElementById("numn").value = item.numeroDocumento;
+            document.getElementById("correo").value = item.correo;
+            document.querySelectorAll('input[name="genero"]').forEach(r => {
+                r.checked = r.value === item.genero;
+            });
+            document.getElementById("fecha").value = item.fechaNacimiento;
+            document.querySelector("#alert-dialog").show();
+
 
         }
-
-        // repinta la lista actualizada
 
 
     </script>
