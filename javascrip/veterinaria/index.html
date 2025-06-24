@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria</title>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="top">
+         <img src="img/logo.jpg" id="tony">
+         <h1>Vet</h1>
+    </div>
+    <div class="raya"></div>
+    <div>
+        <dialog id="alert-dialog"><!---->
+        <div style="background-color: green; color: white; padding: 10px;">
+        <span style="font-weight: bold;">Guardar nueva cita</span>
+        <button type="button" onclick="document.getElementById('nuevaCitaDialog').close()" style="float: right; background: none; border: none; color: white; font-size: 20px;">&times;</button>
+        </div>
+
+        <div style="padding: 15px;">
+        <input type="text" id="nombrem" placeholder="Nombre Mascota" style="width: 100%; margin-bottom: 10px;" required>
+        <input type="text" id="propietario" placeholder="Propietario" style="width: 100%; margin-bottom: 10px;" required>
+        <input type="number" id="tele" placeholder="Telefono" style="width: 100%; margin-bottom: 10px;" required>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <input type="date" id="fecha" min="2025-6-1" max="2025-12-31" style="flex: 1;" required>
+            <input type="time" id="hora" style="flex: 1;"  required>
+        </div>
+
+        <select id="tipo" style="width: 100%; margin-bottom: 10px;" required>
+            <option value="" disabled selected>Selecione tipo de Mascota</option>
+            <option value="perro">Perro</option> 
+            <option value="gato">Gato</option>
+            <option value="loro">loro</option>
+            <option value="gallina">gallina</option>
+            <option value="pez">pez</option>
+            <option value="tortuga">tortuga</option>
+            <option value="hamster">hamster</option>
+            <option value="cerdo">cerdo</option>
+            <option value="araña">araña</option>
+            <option value="conejo">conejo</option>
+        </select>
+
+        <textarea id="sintomas" placeholder="Sintomas"  maxlength="400" style="width: 100%; height: 100px;"></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; padding: 15px;">
+        <button type="submit" id="Guardar" style="background-color: green; color: white; border: none; padding: 5px 10px;">GUARDAR</button>
+        <button type="button" id="CERRAR" style="background-color: white; border: 1px solid red; color: red; padding: 5px 10px;">CERRAR</button>
+        <!--onclick="document.getElementById('alert-dialog').close()"-->
+        </div>
+            
+            
+        </dialog>
+</div>
+    <div class="superior">
+        <!---->
+            <button id="show-button" class="mostrar">Agregar cita</button>
+                <div class="buscar">
+                    <input type="text" id="buscarcita" placeholder="Buscar por nombre de mascota  propietario..." />
+                </div>
+                <div class="filtro"> <!-- filtro de selects-->
+                    <select name="select" id="tipocita">
+                        <option value="todas" selected>todas</option>
+                        <option value="abierta" >abierta</option>
+                        <option value="cancelada" >cancelada</option>
+                        <option value="concluida">concluida</option>
+                    </select>
+                </div>
+        
+    </div>
+     <div id="citas"></div>
+</div> 
+   <script>
+        const showButton = document.querySelector("#show-button");
+        showButton.addEventListener("click", function () {
+            const alertDialog = document.querySelector("#alert-dialog");
+            alertDialog.show();
+        });
+
+        const cerrar= document.getElementById('CERRAR');
+        cerrar.addEventListener('click',function(){
+            const  aler= document.getElementById('alert-dialog')
+            aler.close()
+        })
+
+    </script>
+<script>
+        let datoscitas = JSON.parse(localStorage.getItem("agendarcita")) || []; // es unaa forma de guardar en el local para poder recuperar en caso de que no haya nada se da un array vasio 
+        //let datosFiltrados = [...datoscitas]; para uso de filtro p
+        let modo = 0
+        let cita = ""
+        let conts = datoscitas.length > 0
+        ? Math.max(...datoscitas.map(cita => cita.id)) + 1
+        : 1; 
+        let ID=0
+
+    
+        // Obtener la fecha actual y formatearla como YYYY-MM-DD
+
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0); // Establece la hora a medianoche (00:00:00) del día actual
+        hoy.setDate(hoy.getDate() + 1);
+        const mes = (hoy.getMonth() + 1).toString().padStart(2, '0');
+        const dia = hoy.getDate().toString().padStart(2, '0');
+        const año = hoy.getFullYear();
+        const fechaMinimaString = `${año}-${mes}-${dia}`;
+        console.log("Fecha Mínima requerida (string):", fechaMinimaString);
+        //let es = typeof fechaMinima === 'string';
+        pintarcita();
+
+        document.getElementById("Guardar").addEventListener("click", () => {
+            
+            if (modo == 0) {
+                console.log("estoy guardando...");
+                agendarcita();
+            } else if (modo == 1) {
+                editarcita(ID);
+                console.log("estoy editando...");
+            }
+
+        });
+
+    
+        function agendarcita() {
+            let slect=document.getElementById("fecha").value.trim(); 
+            const fechaSeleccionada = new Date(slect);
+            const diaDeLaSemana = fechaSeleccionada.getDay();
+            fechaSeleccionada.setHours(0, 0, 0, 0);
+            if (document.getElementById("nombrem").value.trim() == "") {
+                mostrarError('nombre mascota')
+            } else if (document.getElementById("propietario").value.trim() == "") {
+                mostrarError("nombre propietario")
+            } else if (document.getElementById("tele").value.trim() == "") {
+                mostrarError('telefono')          
+            }else if (document.getElementById("fecha").value.trim() == "") {
+                mostrarError('fecha ')
+            }else if (document.getElementById("hora").value.trim() == "") {
+                mostrarError('hora ')
+            }   else if (document.getElementById("tipo").value.trim()=="") {
+                mostrarError('tipo de macota')
+            }else if (document.getElementById("sintomas").value.trim() == "") {
+                mostrarError("sintomas")
+            }else if (fechaSeleccionada < hoy) {
+                mostrarError("La fecha debe ser la actual o una fecha próxima.");
+                console.log("Fecha Seleccionada:", fechaSeleccionada);
+                console.log("Hoy (para comparación):", hoy);
+            }else if(diaDeLaSemana === 0 || diaDeLaSemana === 6){
+                mostrarError("tiene que ser en horario de lunes a viernes")
+            }else if (document.getElementById("hora").value < "07:00" ) {
+                mostrarError("La hora debe estar entre 7:00 AM y 7:00 PM.")
+            }else if (document.getElementById("hora").value  > "19:00") {
+                mostrarError("La hora debe estar entre 7:00 AM y 7:00 PM.")
+            } else {
+                let cita = {
+                    id: conts++,
+                    Nombremascota: document.getElementById("nombrem").value,
+                    propietario:document.getElementById("propietario").value ,
+                    telefono: document.getElementById("tele").value ,
+                    fecha: document.getElementById("fecha").value,
+                    hora: document.getElementById("hora").value,
+                    tipomasct:document.getElementById("tipo").value,
+                    sitomas:document.getElementById("sintomas").value,
+                    estado: "abierta"
+                }
+                
+                console.log(cita);
+                datoscitas.unshift(cita);
+                Swal.fire({
+                    title: "REGISTRADO!",
+                    icon: "success",
+                    draggable: true
+                });
+                
+                localStorage.setItem("agendarcita", JSON.stringify(datoscitas));
+                
+                limpiar();
+                pintarcita();
+                const  aler= document.getElementById('alert-dialog')
+                aler.close()//que al teminar se cierre
+                console.log(datoscitas);
+                
+            }
+        }
+        console.log(datoscitas);
+        
+        
+        function limpiar(){
+        document.getElementById("nombrem").value = "";
+        document.getElementById("propietario").value = "";
+        document.getElementById("tele").value = '';
+        document.getElementById("fecha").value ='';
+        document.getElementById("hora").value ='';
+        document.getElementById("tipo").value ='';
+        document.getElementById("sintomas").value ='';
+        }
+
+        function mostrarError(dato) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: `completa el campo ${dato}`,
+                width: "50vh",
+                background: "#dad7c5",
+                backdrop: "",
+                timer: 6000,
+                timerProgressBar: true
+            });
+        }
+
+        function pintarcita(){
+        document.getElementById('citas').textContent='';
+        datoscitas.forEach((item,i)=>{
+
+            let divcard= document.createElement('div');
+            divcard.id='carta'
+
+
+            let divtextos = document.createElement('div');
+            let nombremascota = document.createElement('p');
+            nombremascota.textContent = 'Nombre mascosa: ' + item.Nombremascota;
+            divtextos.appendChild(nombremascota);
+            
+            let idcita=document.createElement('span');
+            idcita.textContent='ID'+item.id;
+            console.log(idcita);
+            divtextos.appendChild(idcita);
+
+            divcard.appendChild(divtextos);
+            let divpersonas= document.createElement('div');
+
+            let propietario2=document.createElement('p');
+            propietario2.textContent='propietario:'+item.propietario;
+            console.log(propietario2);
+            divtextos.appendChild(propietario2);
+            divcard.appendChild(divtextos);
+            
+            /* let divestado = document.createElement('div');
+            let tipos = document.createElement('p');
+            tipos.textContent = 'tipo de mascota: ' + item.tipomasct;
+            divestado.appendChild(tipos);
+            divcard.appendChild(divestado);
+ */
+            let divimagen = document.createElement('div');
+            let imagen = document.createElement('img');
+            imagen.id = 'imagen';
+            imagen.src = `./img/${item.tipomasct}.png`; 
+            divimagen.appendChild(imagen);
+            divcard.appendChild(divimagen);
+            
+            
+            let divtelefono = document.createElement('div');
+            let telefo = document.createElement('p');
+            telefo.textContent = 'Teléfono: ' + item.telefono;
+            divtelefono.appendChild(telefo);
+            divcard.appendChild(divtelefono);
+
+            let divhorario = document.createElement('div');
+            let fecha = document.createElement('p');
+            let hora = document.createElement('p');
+            fecha.textContent = 'Fecha: ' + (item.fecha || 'No definida');
+            hora.textContent = 'Hora: ' + (item.hora || 'No definida');
+            divhorario.appendChild(fecha);
+            divhorario.appendChild(hora);
+            divcard.appendChild(divhorario);
+
+            console.log(typeof item.fecha === 'string')
+            console.log(item.fecha)
+
+            let divsintomas = document.createElement('div');
+            let sintomas = document.createElement('p');
+            sintomas.textContent = 'sintomas: ' + item.sitomas;
+            divsintomas.appendChild(sintomas);
+            divcard.appendChild(divsintomas);
+
+
+            let divsleccion=document.createElement('div');
+            let select = document.createElement("select");
+            select.id = "estado_cita";
+            ["abierta", "cancelada", "concluida"].forEach(valor => {
+                const option = document.createElement("option");
+                option.value = valor;
+                option.textContent = valor;
+                if (valor === item.estado) option.selected = true;
+                select.appendChild(option);
+            });
+                //actualizar el dato en el array y se pueda actualizar
+                select.addEventListener("change", (e) => { //funcion sacada del yout change es para los select al seleccionar parece
+                item.estado = e.target.value;//valor para traer target//investigar mas funciones
+                localStorage.setItem("agendarcita", JSON.stringify(datoscitas));
+                console.log("Estado actualizado a:", item.estado);
+                document.getElementById('citas').innerHTML='';
+                pintarcita();
+                });
+            divsleccion.appendChild(select);//guardar selexct
+            divcard.appendChild(divsleccion);
+            datoscitas[0].opcion = select.value;
+            document.getElementById('citas').appendChild(divcard);
+
+             //pintar fondo
+            if(item.tipomasct =='perro' || item.tipomasct == 'gato' || item.tipomasct== 'conejo'){
+                divcard.className="peludos"
+               // divcard.style.backgroundColor= "#d5e7fe";
+            }else if(item.tipomasct== 'loro'|| item.tipomasct== 'gallina' || item.tipomasct=='cerdo'){
+                divcard.className="rojo"
+                //divcard.style.backgroundColor= "#cdfec2";
+            }else if(item.tipomasct=='pez' || item.tipomasct=='tortuga' || item.tipomasct=='araña'){
+                divcard.className="marm"
+                //divcard.style.backgroundColor= "#f6fec2";
+            }             
+            
+        let divbotones=document.createElement('div');
+        let divAcciones = document.createElement("div");
+        divAcciones.classList.add("acciones");
+        divAcciones.className='botones';
+            let editar=document.createElement('button');
+            editar.className='editar'
+            editar.textContent='editar';
+            editar.addEventListener('click',()=>{ 
+                document.getElementById("nombrem").value =item.Nombremascota;
+                document.getElementById("propietario").value =item.propietario;
+                document.getElementById("tele").value =item.telefono;
+                document.getElementById("fecha").value= item.fecha;
+                document.getElementById("hora").value=item.hora;
+                document.getElementById("tipo").value= item.tipomasct
+                document.getElementById("sintomas").value = item.sitomas
+
+                document.getElementById('Guardar').textContent='Editar cita';
+                modo=1;
+                ID=item.id
+                //mostrar dialog
+                const alertDialog = document.querySelector("#alert-dialog");
+                alertDialog.show();
+            })
+            let eliminar=document.createElement('button');
+            eliminar.textContent='eliminar';
+            eliminar.className='eliminar'
+            eliminar.addEventListener('click',()=>{
+                let indice=datoscitas.findIndex(it=> it.id==item.id);
+                const numeroCitaAEliminar = item.id;
+                //confimacion de elmiminar
+                Swal.fire({
+                title: "Esta seguro?",
+                text: "deseas eliminar esta cita!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#7F9751FF",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "SI, Eliminar!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                    title: "Eliminado!",
+                    text: "Ha sido eliminado.",
+                    icon: "success"
+                    });
+                    
+                datoscitas.splice(indice,1);
+                datoscitas = datoscitas.filter(cita => cita.id !== numeroCitaAEliminar);//sacar el elemnto delarray
+                    localStorage.setItem('agendarcita', JSON.stringify(datoscitas));
+                //localStorage.setItem('user', JSON.stringify(userObj))
+                    /* const idABorrar = event.target.dataset.id;
+                    borrarCita(parseInt(idABorrar)); */
+                //localStorage.removeItem(numeroCitaAEliminar);
+                pintarcita();
+                }
+                });
+                
+            })
+
+            divbotones.appendChild(editar);
+            divbotones.appendChild(eliminar);
+            divcard.appendChild(divbotones);
+
+
+            document.getElementById('citas').appendChild(divcard);
+            
+        })
+    }
+        let datoscitasOriginal = [...datoscitas];
+    //filtrar
+            document.getElementById('tipocita').addEventListener("change",(evt)=>{
+                const estado=evt.target.value;
+                console.log(datoscitasOriginal);
+                //document.getElementById('citas').innerHTML='';
+                //document.getElementById("miDiv").innerHTML = "<p>Nuevo contenido.</p>";
+                let copia =[];
+                //copia = datoscitas;// cambiar
+                let datosParaPintar = [];
+                if(estado==="todas"){
+                    datosParaPintar =datoscitasOriginal; // asi no modivfico el original si no que guardo todo en otro array para noa afectar el original 
+                    
+                    //pintarcita(); no se necesita  por qie al final se cambia 
+                }else{
+                    datosParaPintar = datoscitasOriginal.filter(cita => cita.estado === estado);
+                    
+                    //agrego los datos filtrado ára despues pintar guardando los orginales para que no se pierdan p1
+                }
+                datoscitas = datosParaPintar;
+                    pintarcita();
+                console.log('linea 362'+datosParaPintar)
+            })
+            function filtrop(){
+                
+            }
+
+
+       /*  document.getElementById('tipocita').addEventListener("change", (evt) => {
+                const valorSeleccionado = evt.target.value; 
+                let copia =[];
+                copia = [...datoscitas];
+                if( valorSeleccionado=== 'todas'){
+                    datoscitas=copia;
+                    pintarcita();
+                    console.log('selecciono ' + valorSeleccionado)
+                }else if( valorSeleccionado ==='abierta'){
+                    let abiertas = datoscitas.filter(cita => cita.opcion.includes(valorSeleccionado));
+                    datoscitas=abiertas;
+                    pintarcita();
+                    console.log(abiertas);
+                    //let resultados=datoscitas.filter((n)=>n.propietario.includes(filtro))
+                    console.log('selecciono ' + valorSeleccionado)
+                }else if(valorSeleccionado ==='cancelada'){
+                    let cancelada=datoscitas.filter(cita => cita.opcion.includes(valorSeleccionado));
+                    datoscitas=cancelada;
+                    pintarcita();
+                }else if (valorSeleccionado === "concluida"){
+                    let concluidas = datoscitas.filter(cita => cita.opcion.includes(valorSeleccionado));
+                    datoscitas=concluidas;
+                    pintarcita();
+                }
+                datoscitas=copia;
+        }); */
+
+    //buscar 
+    document.getElementById("buscarcita").addEventListener("input", () => {
+        let filtro = document.getElementById("buscarcita").value.trim();
+        let copia=[];
+            copia=datoscitas;
+    if (filtro === "") {
+            datoscitas=copia;
+                pintarcita();
+    } else{ 
+        //let resultados=datoscitas.filter((n)=>n.propietario.includes(filtro)) && datoscitas.filter((m)=>m.nombremascota.includes(filtro));
+        let resultados = datoscitas.filter(cita => {
+    const propietario = cita.propietario || ""; 
+    const nombreMascota = cita.Nombremascota || ""; 
+    const filtroLower = filtro ? filtro.toLowerCase() : ""; 
+
+    return propietario.toLowerCase().includes(filtroLower) ||
+        nombreMascota.toLowerCase().includes(filtroLower);
+});
+        datoscitas =resultados;
+            pintarcita();
+    }
+        /*     let resultados = datoscitas.filter((m) => m.numero.includes(filtro));
+            datoscitas =resultados;
+            pintarmesa();
+        }
+         */
+        datoscitas=copia;
+    });
+
+
+    function editarcita(ID){
+        let indice = datoscitas.findIndex(it => it.id == ID)
+        console.log(indice);
+
+          const fechaActual = new Date();
+            if (document.getElementById("nombrem").value == "") {
+                mostrarError('nombre mascota')
+            } else if (document.getElementById("propietario").value == "") {
+                mostrarError("nombre propietario")
+            } else if (document.getElementById("tele").value == "") {
+                mostrarError('telefono')          
+            }else if (document.getElementById("fecha").value == "") {
+                mostrarError('fecha ')
+            }else if (document.getElementById("hora").value == "") {
+                mostrarError('hora ')
+            }   else if (document.getElementById("tipo").value=="") {
+                mostrarError('tipo de macota')
+            }else if (document.getElementById("sintomas").value == "") {
+                mostrarError("sintomas")
+            }else if (document.getElementById("fecha").value < fechaActual) {
+                mostrarError("debe ser fecha proxima")
+            }else if (document.getElementById("hora").value < "07:00" ) {
+                mostrarError("La hora debe estar entre 7:00 AM y 7:00 PM.")
+            }else if (document.getElementById("hora").value  > "19:00") {
+                mostrarError("La hora debe estar entre 7:00 AM y 7:00 PM.")
+            } else {
+                datoscitas[indice].nombreMascota=document.getElementById('nombrem').value
+                datoscitas[indice].propietario=document.getElementById('propietario').value
+                datoscitas[indice].telefono=document.getElementById('tele').value
+                datoscitas[indice].fecha=document.getElementById("fecha").value
+                datoscitas[indice].hora=document.getElementById("hora").value
+                datoscitas[indice].tipomasct=document.getElementById("tipo").value
+                datoscitas[indice].sitomas=document.getElementById("sintomas").value
+                modo = 0;
+                document.getElementById('Guardar').textContent= 'Guardar cita';
+                localStorage.setItem('agendarcita', JSON.stringify(datoscitas));
+                pintarcita();
+                Swal.fire({
+                title: "editado!!",
+                icon: "success",
+                draggable: true
+                });
+                limpiar();
+            }
+
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1%;
+        }
+    #citas{
+        display:grid;
+        width: 100%;
+        height: auto;
+        grid-template-columns: repeat(2,1fr);
+        gap: 20px;
+    }
+    #carta{
+        display: flex;
+        gap: 20px;
+        box-sizing: border-box;
+        width: auto;
+        height: auto;
+        background-image: url('https://i.pinimg.com/736x/d9/51/e5/d951e562c1c383a7cb14d4eece54b769.jpg');
+        border: 3px solid rgb(96, 141, 96);
+    }
+    #carta img{
+        width: 50px;
+        height: 50px;
+        /* position: absolute; */
+        top: 0;
+        right: 0; 
+    }
+    .top{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        color: #028a8a ;
+        gap: 10px;
+    }
+    .top img{
+        width: 100px;
+        height: auto;
+        border: 2px solid #028a8a;
+        border-radius: 45px;
+    }
+    .raya{
+        width: 100%;
+        height: 2px;
+        background-color: #028a8a;
+        
+    }
+    #buscarcita{
+        width: 400px;
+    }
+    .superior{
+        display: flex;
+        gap: 30px;
+        margin: 10px;
+    }
+    .mostrar{
+        background-color: #028a8a ;
+        color: #ff8281 ;
+        border: 0;
+        border-radius: 20px;
+    }
+    .filtro {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        background-color: #f5f5f5;
+        border-radius: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 1rem auto;
+        width: fit-content;
+        }
+
+    .filtro select {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .filtro select:hover {
+    border-color: #999;
+    }
+
+    .filtro select:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3);
+    }
+
+    /* dialog {
+        /* position: fixed; *//* 
+        transform: translate(-50%, -50%); 
+    } */
+    
+    /* Estilo para el botón Agregar cita */
+    .mostrar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 1rem;
+    }
+
+    .mostrar:hover {
+    background-color: #45a049;
+    transform: scale(1.03);
+    }
+
+    .mostrar:active {
+    transform: scale(0.98);
+    }
+
+/* Contenedor del input de búsqueda */
+    .buscar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 500px;
+    }
+
+    /* Input de búsqueda */
+    .buscar input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .buscar input:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    }
+
+
+</style>
+</body>
+</html>
