@@ -9,12 +9,12 @@
 
 <div class="container">
     
-    <div class="top">
+    <!-- <div class="top">
          <img src="img/logo.jpg" id="tony">
          <h1>Vet</h1>
     </div>
     <div class="raya"></div>
-    <div>
+    <div> -->
         <dialog id="alert-dialog"><!---->
         <div style="background-color: green; color: white; padding: 10px;">
         <span style="font-weight: bold;">Guardar nueva cita</span>
@@ -339,6 +339,7 @@
             let eliminar=document.createElement('button');
             eliminar.textContent='eliminar';
             eliminar.className='eliminar'
+
             eliminar.addEventListener('click',()=>{
                 let indice=datoscitas.findIndex(it=> it.id==item.id);
                 const numeroCitaAEliminar = item.id;
@@ -404,10 +405,6 @@
                     pintarcita();
                 console.log('linea 362'+datosParaPintar)
             })
-            function filtrop(){
-                
-            }
-
 
        /*  document.getElementById('tipocita').addEventListener("change", (evt) => {
                 const valorSeleccionado = evt.target.value; 
@@ -470,7 +467,7 @@
         let indice = datoscitas.findIndex(it => it.id == ID)
         console.log(indice);
 
-          const fechaActual = new Date();
+            const fechaActual = new Date();
             if (document.getElementById("nombrem").value == "") {
                 mostrarError('nombre mascota')
             } else if (document.getElementById("propietario").value == "") {
@@ -521,6 +518,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
         padding: 1%;
         }
     #citas{
@@ -546,7 +544,7 @@
         top: 0;
         right: 0; 
     }
-    .top{
+    /* .top{
         display: flex;
         justify-content: center;
         width: 100%;
@@ -558,26 +556,17 @@
         height: auto;
         border: 2px solid #028a8a;
         border-radius: 45px;
-    }
+    } */
     .raya{
         width: 100%;
         height: 2px;
         background-color: #028a8a;
         
     }
-    #buscarcita{
-        width: 400px;
-    }
     .superior{
         display: flex;
         gap: 30px;
         margin: 10px;
-    }
-    .mostrar{
-        background-color: #028a8a ;
-        color: #ff8281 ;
-        border: 0;
-        border-radius: 20px;
     }
     .filtro {
         display: flex;
@@ -620,7 +609,7 @@
     
     /* Estilo para el botón Agregar cita */
     .mostrar {
-    background-color: #4CAF50;
+    background-color: #adddaf;
     color: white;
     padding: 0.6rem 1.2rem;
     font-size: 1rem;
@@ -632,10 +621,7 @@
     margin: 1rem;
     }
 
-    .mostrar:hover {
-    background-color: #45a049;
-    transform: scale(1.03);
-    }
+    
 
     .mostrar:active {
     transform: scale(0.98);
@@ -666,6 +652,39 @@
     border-color: #4a90e2;
     outline: none;
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    }
+ /* botones tarjeta  */
+    .editar, .eliminar {
+    padding: 0.4rem 1rem;
+    margin: 0.3rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+/* Botón editar */
+    .editar {
+    background-color: #aabecc;
+    color: white;
+    }
+
+    .editar:hover {
+    background-color: #7a93a3;
+    transform: scale(1.03);
+    }
+
+    /* Botón eliminar */
+    .eliminar {
+    background-color: #ffc1ba;
+    color: white;
+    }
+
+    .eliminar:hover {
+    background-color: #fdcdc7;
+    transform: scale(1.03);
     }
 
 
